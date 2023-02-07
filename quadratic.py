@@ -43,6 +43,15 @@ def find_roots(a: float, b: float, c: float) -> tuple[float, float]:
         root2: float = (-b - detroot)/(2*a)
         return root1, root2
 
+def find_roots_except(a: float, b: float, c: float) -> tuple[float, float]:
+    """Find the roots of the system a*x**2 + b*x + c = 0.  If there are no
+    real roots, go ahead and raise the exception from math.sqrt()."""
+    det: float = find_determinant(a, b, c)
+    detroot: float = math.sqrt(det)
+    root1: float = (-b + detroot)/(2*a)
+    root2: float = (-b - detroot)/(2*a)
+    return root1, root2
+
 def main(args: list[str]) -> int:
     # Input
     a, b, c = read_coefficients() # float, float, float

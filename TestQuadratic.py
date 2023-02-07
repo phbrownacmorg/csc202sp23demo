@@ -72,5 +72,43 @@ class TestQuadratic(unittest.TestCase):
         self.assertTrue(math.isnan(roots[0]))
         self.assertTrue(math.isnan(roots[1]))
 
+    def test_roots_xc_1_0_0(self) -> None:
+        roots = quadratic.find_roots_except(1, 0, 0)
+        self.assertEqual(len(roots), 2) # Comparing integers, use self.assertEqual()
+        self.assertAlmostEqual(roots[0], 0)
+        self.assertAlmostEqual(roots[1], 0)
+
+    def test_roots_xc_1_2_0(self) -> None:
+        roots = quadratic.find_roots_except(1, 2, 0)
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], 0)
+        self.assertAlmostEqual(roots[1], -2)
+
+    def test_roots_xc_1_10_0(self) -> None:
+        roots = quadratic.find_roots_except(1, 10, 0)
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], 0)
+        self.assertAlmostEqual(roots[1], -10)
+
+    def test_roots_xc_1_n5_0(self) -> None:
+        roots = quadratic.find_roots_except(1, -5, 0)
+        self.assertEqual(len(roots), 2)
+        self.assertAlmostEqual(roots[0], 5)
+        self.assertAlmostEqual(roots[1], 0)
+    
+    def test_roots_xc_1_2_n2(self) -> None:
+        roots = quadratic.find_roots_except(1, 2, -2)
+        self.assertEqual(len(roots), 2)
+        # You *can* calculate the number to compare to
+        self.assertAlmostEqual(roots[0], (-2 + math.sqrt(12))/2)
+        self.assertAlmostEqual(roots[1], (-2 - math.sqrt(12))/2)
+
+    def test_roots_xc_n2_2_n2(self) -> None:
+        with self.assertRaises(ValueError) as cm:
+            roots = quadratic.find_roots_except(-2, 2, -2)
+        # Make certain it's the *correct* ValueError
+        exc: ValueError = cm.exception
+        self.assertEqual(exc.args[0], "math domain error") # args[0] is the error message
+
 if __name__ == '__main__':
     unittest.main()

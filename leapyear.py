@@ -1,6 +1,12 @@
 # Program to do nothing, correctly.
 
 def isLeapYear(year: int) -> bool:
+    """Takes a YEAR in the Gregorian calendar and returns 
+    a Boolean telling whether YEAR is a leap year."""
+    # Pre:
+    assert year > 1581, 'Year is too small'
+    # Job of the precondition is to make sure the argument makes sense
+
     leap: bool = False # Correct 3/4 of the time
     if (year % 4) == 0: # Julian rule
         leap = True
@@ -8,6 +14,11 @@ def isLeapYear(year: int) -> bool:
         leap = False
     if (year % 400) == 0: # Gregorian 400-year rule
         leap = True
+    # Post:
+    assert leap == ((year % 400 == 0) or (year % 4 == 0 and year % 100 != 0))
+    # If the precondition is true and the code is right, the postcondition
+    # should never be false
+
     return leap
 
 def main(args: list[str]) -> int:

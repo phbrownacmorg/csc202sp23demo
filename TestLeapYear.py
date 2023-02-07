@@ -40,6 +40,11 @@ class TestLeapYear(unittest.TestCase):
     def test_2000(self) -> None: # y % 400 == 0
         self.assertTrue(leapyear.isLeapYear(2000))
 
+    def test_precondition(self) -> None:
+        with self.assertRaises(AssertionError) as cm:
+            leapyear.isLeapYear(1581)
+        self.assertEqual(cm.exception.args[0], 'Year is too small')
+
 
 if __name__ == '__main__':
     unittest.main()
