@@ -13,7 +13,7 @@ def findGCD(a: int, b: int) -> int:
         m, n = n, m % n
     gcd = abs(m)
     # Post:
-    (a % gcd == 0) and (b % gcd == 0) and gcd > 0
+    assert (a % gcd == 0) and (b % gcd == 0) and gcd > 0
     # and there is no integer > gcd for which this is so
     return gcd
 
