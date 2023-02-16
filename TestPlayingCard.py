@@ -46,5 +46,15 @@ class TestPlayingCard(unittest.TestCase):
                                         self.assertEqual((card1 == card2), \
                                             (rank1 == rank2 and suit1 == suit2))
 
+    def test_makeDeck(self) -> None:
+        deck: list[PlayingCard] = PlayingCard.makeDeck()
+        self.assertEqual(len(deck), 52)
+        for suit in PlayingCard.SUITS:
+            with self.subTest(suit=suit):
+                for rank in PlayingCard.RANK_NAMES[PlayingCard._BOTTOM_RANK:]:
+                    with self.subTest(rank=rank):
+                        card: PlayingCard = PlayingCard(rank, suit)
+                        self.assertTrue(card in deck)
+
 if __name__ == '__main__':
     unittest.main()
