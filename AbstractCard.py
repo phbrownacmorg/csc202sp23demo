@@ -21,10 +21,11 @@ class AbstractCard(abc.ABC):
     def __init__(self, rank: str, suit: str):
         """Create an AbstractCard of a given suit and rank."""
         # Pre:
-        assert suit.capitalize() in self.SUITS and \
-            rank.capitalize() in self.RANK_NAMES
-        self._suit: int = self.SUITS.index(suit.capitalize())
-        self._rank: int = self.__class__.RANK_NAMES.index(rank.capitalize())
+        #assert suit.title() in self.SUITS and \
+        #    rank.title() in self.RANK_NAMES
+        self._suit: int = self.SUITS.index(suit.title())
+        #print(rank.title(), self.RANK_NAMES)
+        self._rank: int = self.RANK_NAMES.index(rank.title())
         # Post:
         assert self._invariant()
 

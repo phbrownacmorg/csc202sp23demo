@@ -17,6 +17,7 @@ class UnoCard(AbstractCard):
     _TOP_RANK: int = len(RANK_NAMES) - 1
     _COLOR_RANKS: tuple[int, ...] = tuple(range(_TOP_COLOR_RANK + 1))
     _WILD_RANKS: tuple[int, ...] = tuple(range(_TOP_COLOR_RANK + 1, _TOP_RANK + 1))
+    _RANKS: tuple[int, ...] = tuple(range(_TOP_RANK+1))
 
     # Overrides AbstractCard._invariant()
     def _invariant(self) -> bool:
@@ -34,10 +35,10 @@ class UnoCard(AbstractCard):
     def __init__(self, rank: str, suit: str):
         """Constructor"""
         # Pre:
-        #assert ((suit.capitalize() in self.COLOR_SUITS and 
-        #            rank.capitalize() in self.COLOR_RANK_NAMES) or 
-        #        (suit.capitalize() in self.WILD_SUIT and
-        #            rank.capitalize() in self.WILD_RANK_NAMES))
+        assert ((suit.title() in self.COLOR_SUITS and 
+                   rank.title() in self.COLOR_RANK_NAMES) or 
+               (suit.title() in self.WILD_SUIT and
+                   rank.title() in self.WILD_RANK_NAMES))
         super().__init__(rank, suit)
         # Postcondition is exactly the one that's checked in AbstractCard.
 

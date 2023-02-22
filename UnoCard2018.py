@@ -9,11 +9,12 @@ class UnoCard2018(UnoCard):
     # The wild rank names did change, though
     WILD_RANK_NAMES: tuple[str, ...] = ('', 'Draw 4', 'Shuffle Deck', 'Customizable')
     RANK_NAMES: tuple[str, ...] = UnoCard.COLOR_RANK_NAMES + WILD_RANK_NAMES
-    # Inherit _TOP_COLOR_RANK
+    # Inherit _BOTTOM_RANK and _TOP_COLOR_RANK
     _TOP_RANK: int = len(RANK_NAMES) - 1
     # Inherit _COLOR_RANKS
     _WILD_RANKS: tuple[int, ...] = tuple(range(UnoCard._TOP_COLOR_RANK + 1, 
                                                 _TOP_RANK + 1))
+    _RANKS: tuple[int, ...] = tuple(range(_TOP_RANK+1))
 
     # Inherit _invariant().  Everything that changed is explicitly polymorphic ('self.')
 
@@ -21,10 +22,10 @@ class UnoCard2018(UnoCard):
     def __init__(self, rank: str, suit: str):
         """Constructor."""
         # Pre:
-        #assert ((suit.capitalize() in self.COLOR_SUITS and 
-        #            rank.capitalize() in self.COLOR_RANK_NAMES) or 
-        #        (suit.capitalize() in self.WILD_SUIT and
-        #            rank.capitalize() in self.WILD_RANK_NAMES))
+        assert ((suit.title() in self.COLOR_SUITS and 
+                   rank.title() in self.COLOR_RANK_NAMES) or 
+               (suit.title() in self.WILD_SUIT and
+                   rank.title() in self.WILD_RANK_NAMES))
         super().__init__(rank, suit)
         # Postcondition is exactly the one that's checked in AbstractCard.
 
