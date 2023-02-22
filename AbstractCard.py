@@ -24,7 +24,7 @@ class AbstractCard(abc.ABC):
         assert suit.capitalize() in self.SUITS and \
             rank.capitalize() in self.RANK_NAMES
         self._suit: int = self.SUITS.index(suit.capitalize())
-        self._rank: int = self.RANK_NAMES.index(rank.capitalize())
+        self._rank: int = self.__class__.RANK_NAMES.index(rank.capitalize())
         # Post:
         assert self._invariant()
 
