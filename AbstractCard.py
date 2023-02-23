@@ -45,8 +45,8 @@ class AbstractCard(abc.ABC):
         if not isinstance(other, AbstractCard):
             return NotImplemented
         else:
-            return (self._rank == other._rank) and \
-                (self._suit == other._suit)
+            return (self.rankName() == other.rankName()) and \
+                (self.suitName() == other.suitName())
 
     def __str__(self) -> str:
         """Return a string representation of this AbstractCard."""
