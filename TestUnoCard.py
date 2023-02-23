@@ -66,7 +66,18 @@ class TestUnoCard(unittest.TestCase):
         self.assertEqual(len(deck), 108)
         # Finish figuring out if every card has the right number of instances
         # in the deck
-
+        counts: list[int] = [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, # Color ranks, numbers
+                             2, 2, 2,                      # Color ranks, non-numbers
+                             4, 4]                         # Wild cards
+        for suit in UnoCard.SUITS:
+            with self.subTest(suit=suit):
+                rank_list: tuple[str,...] = UnoCard.COLOR_RANK_NAMES
+                if suit in UnoCard.WILD_SUIT:
+                    rank_list = UnoCard.WILD_RANK_NAMES
+                for rank in rank_list:
+                    with self.subTest(rank=rank):
+                        card: UnoCard = UnoCard(rank, suit)
+                        self.assertEqual(deck.count(card), counts[card._rank])
 
 if __name__ == '__main__':
     unittest.main()

@@ -57,15 +57,24 @@ class TestUnoCard2018(unittest.TestCase):
                                         self.assertEqual((card1 == card2), \
                                             (rank1 == rank2 and suit1 == suit2))
 
-
-    #@unittest.expectedFailure # Remove this and make test_makeDeck do its proper job
     def test_makeDeck(self) -> None:
         """Assumes the pre-2018 deck with 108 cards and only two kinds of wild card."""
         deck: list[AbstractCard] = UnoCard2018.makeDeck()
         self.assertEqual(len(deck), 112)
         # Finish figuring out if every card has the right number of instances
         # in the deck
-
+        counts: list[int] = [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+                             2, 2, 2,
+                             4, 4, 1, 3]
+        for suit in UnoCard2018.SUITS:
+            with self.subTest(suit=suit):
+                rank_list: tuple[str,...] = UnoCard2018.COLOR_RANK_NAMES
+                if suit in UnoCard2018.WILD_SUIT:
+                    rank_list = UnoCard2018.WILD_RANK_NAMES
+                for rank in rank_list:
+                    with self.subTest(rank=rank):
+                        card: UnoCard2018 = UnoCard2018(rank, suit)
+                        self.assertEqual(deck.count(card), counts[card._rank])
 
 if __name__ == '__main__':
     unittest.main()
