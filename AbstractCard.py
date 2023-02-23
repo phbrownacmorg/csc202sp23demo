@@ -45,6 +45,8 @@ class AbstractCard(abc.ABC):
         if not isinstance(other, AbstractCard):
             return NotImplemented
         else:
+            # Compare names, not numbers, so cards of unrelated
+            # kinds don't compare equal
             return (self.rankName() == other.rankName()) and \
                 (self.suitName() == other.suitName())
 
