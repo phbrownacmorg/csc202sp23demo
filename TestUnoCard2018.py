@@ -63,9 +63,9 @@ class TestUnoCard2018(unittest.TestCase):
         self.assertEqual(len(deck), 112)
         # Finish figuring out if every card has the right number of instances
         # in the deck
-        counts: list[int] = [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
-                             2, 2, 2,
-                             4, 4, 1, 3]
+        counts: list[int] = [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, # Color ranks, numbers
+                             2, 2, 2,                      # Color ranks, non-numbers
+                             4, 4, 1, 3]                         # Wild cards
         for suit in UnoCard2018.SUITS:
             with self.subTest(suit=suit):
                 rank_list: tuple[str,...] = UnoCard2018.COLOR_RANK_NAMES
