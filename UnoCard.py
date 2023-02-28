@@ -15,9 +15,6 @@ class UnoCard(AbstractCard):
     RANK_NAMES: tuple[str, ...] = COLOR_RANK_NAMES + WILD_RANK_NAMES
     _TOP_COLOR_RANK: int = len(COLOR_RANK_NAMES) - 1
     _TOP_RANK: int = len(RANK_NAMES) - 1
-    _COLOR_RANKS: tuple[int, ...] = tuple(range(_TOP_COLOR_RANK + 1))
-    _WILD_RANKS: tuple[int, ...] = tuple(range(_TOP_COLOR_RANK + 1, _TOP_RANK + 1))
-    _RANKS: tuple[int, ...] = tuple(range(_TOP_RANK+1))
 
     # Overrides AbstractCard._invariant()
     def _invariant(self) -> bool:

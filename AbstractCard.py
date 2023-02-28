@@ -11,7 +11,6 @@ class AbstractCard(abc.ABC):
     RANK_NAMES: tuple[str, ...] = tuple()
     _BOTTOM_RANK: int = 0
     _TOP_RANK: int = len(RANK_NAMES) - 1
-    _RANKS: tuple[int, ...] = tuple(range(_BOTTOM_RANK, _TOP_RANK+1))
 
     def _invariant(self) -> bool:
         """Class invariant."""
