@@ -11,10 +11,6 @@ class UnoCard2018(UnoCard):
     RANK_NAMES: tuple[str, ...] = UnoCard.COLOR_RANK_NAMES + WILD_RANK_NAMES
     # Inherit _BOTTOM_RANK and _TOP_COLOR_RANK
     _TOP_RANK: int = len(RANK_NAMES) - 1
-    # Inherit _COLOR_RANKS
-    _WILD_RANKS: tuple[int, ...] = tuple(range(UnoCard._TOP_COLOR_RANK + 1, 
-                                                _TOP_RANK + 1))
-    _RANKS: tuple[int, ...] = tuple(range(_TOP_RANK+1))
 
     # Inherit _invariant().  Everything that changed is explicitly polymorphic ('self.')
 
