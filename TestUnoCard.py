@@ -34,6 +34,37 @@ class TestUnoCard(unittest.TestCase):
                         self.assertEqual(rank, card.rankName())
                         self.assertEqual(suit, card.suitName())
 
+    def test_lt(self) -> None:
+        # Make every card for the left side
+        for suit1 in UnoCard.SUITS:
+            with self.subTest(suit1=suit1):
+                suitIdx1: int = UnoCard.SUITS.index(suit1)
+                rank1_list = UnoCard.COLOR_RANK_NAMES
+                if suit1 in UnoCard.WILD_SUIT:
+                    rank1_list = UnoCard.WILD_RANK_NAMES
+                for rank1 in rank1_list:
+                    with self.subTest(rank1=rank1):
+                        rankIdx1: int = UnoCard.RANK_NAMES.index(rank1)
+                        card1: UnoCard = UnoCard(rank1, suit1)
+                        # Now, check all the cards on the right side
+                        for suit2 in UnoCard.SUITS:
+                            with self.subTest(suit2=suit2):
+                                suitIdx2: int = UnoCard.SUITS.index(suit2)
+                                rank2_list = UnoCard.COLOR_RANK_NAMES
+                                if suit2 in UnoCard.WILD_SUIT:
+                                    rank2_list = UnoCard.WILD_RANK_NAMES
+                                for rank2 in rank2_list:
+                                    with self.subTest(rank2=rank2):
+                                        rankIdx2: int = UnoCard.RANK_NAMES.index(rank2)
+                                        card2: UnoCard = UnoCard(rank2, suit2)
+                                        if rank1 != rank2:
+                                            self.assertEqual(card1 < card2, 
+                                                            rankIdx1 < rankIdx2)
+                                        else: # rank1 == rank2
+                                            self.assertEqual(card1 < card2, 
+                                                            suitIdx1 < suitIdx2)
+
+
     def test_eq(self) -> None:
         # Make every card for the left side
         for suit1 in UnoCard.SUITS:

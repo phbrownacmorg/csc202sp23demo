@@ -1,6 +1,8 @@
 import abc
+import functools
 from typing import cast
 
+@functools.total_ordering
 class AbstractCard(abc.ABC):
     """Abstract base class for cards that are represented by rank and suit.
     Rank and suit are represented internally as integers, but externally as strings.
@@ -35,6 +37,28 @@ class AbstractCard(abc.ABC):
     def rankName(self) -> str:
         """Given a PlayingCard, return its rank as a string."""
         return self.RANK_NAMES[self._rank]
+
+    def __lt__(self, other: 'AbstractCard') -> bool:
+        """Return True iff self < other.  Implements a War-style ordering, where
+        ranks are compared first and suits are compared only if the ranks are equal.
+        This relationship is only defined if the types of self and other are
+        hierarchically related; that is, either the types are the same or there's
+        an ancestor-descendant relationship between them."""
+        # Pre:
+        assert self._invariant() and other._invariant()
+
+        # If no ancestor-descendant relationship, return NotImplemented
+        if (not (isinstance(self, other.__class__))) \
+            and (not (isinstance(other, self.__class__))):
+            return NotImplemented
+        # Compare ranks
+        elif self._rank < other._rank:
+            return True
+        elif self._rank > other._rank:
+            return False
+        # self._rank == other._rank
+        else:
+            return self._suit < other._suit
 
     def __eq__(self, other: object) -> bool:
         """Return True iff the PlayingCards have the same rank and suit."""

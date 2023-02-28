@@ -27,6 +27,26 @@ class TestPlayingCard(unittest.TestCase):
                         self.assertEqual(rank, card.rankName())
                         self.assertEqual(suit, card.suitName())
 
+    def test_lt(self) -> None:
+        for suit1 in PlayingCard.SUITS:
+            with self.subTest(suit1=suit1):
+                suitIdx1: int = PlayingCard.SUITS.index(suit1)
+                for rank1 in PlayingCard.RANK_NAMES[PlayingCard._BOTTOM_RANK:]:
+                    with self.subTest(rank1=rank1):
+                        rankIdx1: int = PlayingCard.RANK_NAMES.index(rank1)
+                        card1: PlayingCard = PlayingCard(rank1, suit1)
+                        for suit2 in PlayingCard.SUITS:
+                            with self.subTest(suit2=suit2):
+                                suitIdx2: int = PlayingCard.SUITS.index(suit2)
+                                for rank2 in PlayingCard.RANK_NAMES[PlayingCard._BOTTOM_RANK:]:
+                                    with self.subTest(rank2=rank2):
+                                        rankIdx2: int = PlayingCard.RANK_NAMES.index(rank2)
+                                        card2: PlayingCard = PlayingCard(rank2, suit2)
+                                        if rankIdx1 != rankIdx2:
+                                            self.assertEqual(card1 < card2, rankIdx1 < rankIdx2)
+                                        else:
+                                            self.assertEqual(card1 < card2, suitIdx1 < suitIdx2)
+
     def test_eq(self) -> None:
         # Make every card and ensure that they all come out right
         for suit1 in PlayingCard.SUITS:
