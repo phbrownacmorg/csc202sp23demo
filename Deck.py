@@ -1,5 +1,6 @@
 from AbstractCard import AbstractCard
 from collections.abc import Iterable
+import random
 
 class Deck:
     """Class to represent a deck of cards.  As with most decks,
@@ -21,6 +22,8 @@ class Deck:
         # Post:
         assert self._invariant()
 
+    # Mutation methods
+
     def deal(self) -> AbstractCard:
         """Deal the card off the top of the deck."""
         # Top of the deck is the *end* of the list.
@@ -34,6 +37,20 @@ class Deck:
         # Post:
         assert oldTopCard == card and len(self._cards) == (oldlen - 1)
         return card
+
+    #def dealFromBottom(self) -> AbstractCard:
+    #    pass
+
+    def pickACard(self) -> AbstractCard:
+        """Pick a random card from the deck, remove it from the deck, and return it."""
+        return self._cards.pop(random.randrange(len(self)))
+
+    def shuffle(self) -> None:
+        """Randomly reorder the deck in place."""
+        for i in range(len(self)):
+            self._cards[i] = self._cards.pop(random.randrange(i, len(self)))
+
+    # Query methods
 
     def __len__(self) -> int:
         """Number of cards currently in the deck."""
