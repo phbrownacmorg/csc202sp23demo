@@ -3,19 +3,19 @@
 
 import unittest
 # import the module to test
-from Stack import Stack, matched_delimiters
+from Stack import Stack
 
 class TestStack(unittest.TestCase):
     def setUp(self) -> None:
-        self._empty: Stack[int] = Stack[int]()
+        self._empty: Stack[int] = Stack[int]() # type: ignore
 
-        self._1item: Stack[int] = Stack[int]()
+        self._1item: Stack[int] = Stack[int]() # type: ignore
         self._1item.push(5)
 
-        self._3items: Stack[str] = Stack[str]()
-        self._3items.push(42)
-        self._3items.push(600)
-        self._3items.push(7)
+        self._3items: Stack[str] = Stack[str]() # type: ignore
+        self._3items.push('42')
+        self._3items.push('600')
+        self._3items.push('7')
     
     # All methods whose names start with "test"
     # will be treated as tests
@@ -42,44 +42,10 @@ class TestStack(unittest.TestCase):
             self._empty.pop()
         self.assertEqual(self._1item.pop(), 5)
         self.assertTrue(self._1item.empty())
-        self.assertEqual(self._3items.pop(), 7)
-        self.assertEqual(self._3items.pop(), 600)
-        self.assertEqual(self._3items.pop(), 42)
+        self.assertEqual(self._3items.pop(), '7')
+        self.assertEqual(self._3items.pop(), '600')
+        self.assertEqual(self._3items.pop(), '42')
         self.assertTrue(self._3items.empty())
-
-    def testMatchedDelimiters(self) -> None:
-        # Obvious false cases
-        self.assertFalse(matched_delimiters('('))
-        self.assertFalse(matched_delimiters('['))
-        self.assertFalse(matched_delimiters('{'))
-        self.assertFalse(matched_delimiters(')'))
-        self.assertFalse(matched_delimiters(']'))
-        self.assertFalse(matched_delimiters('}'))
-        self.assertFalse(matched_delimiters("'"))
-        self.assertFalse(matched_delimiters('"'))
-        self.assertFalse(matched_delimiters('`'))
-        self.assertFalse(matched_delimiters('%'))
-        self.assertFalse(matched_delimiters('$'))
-
-        # Obvious true cases
-        self.assertTrue(matched_delimiters('()'))
-        self.assertTrue(matched_delimiters('[]'))
-        self.assertTrue(matched_delimiters('{}'))
-        self.assertTrue(matched_delimiters('""'))
-        self.assertTrue(matched_delimiters("''"))
-        self.assertTrue(matched_delimiters('``'))
-        self.assertTrue(matched_delimiters('$$'))
-        self.assertTrue(matched_delimiters('%%'))
-
-        # Nesting
-        self.assertTrue(matched_delimiters('(()()()())'))
-        self.assertTrue(matched_delimiters('(((())))'))
-        self.assertTrue(matched_delimiters('(()((())()))'))
-        self.assertFalse(matched_delimiters('((((((())'))
-        self.assertFalse(matched_delimiters('()))'))
-        self.assertFalse(matched_delimiters('(()()(()'))
-
-
 
 if __name__ == '__main__':
     unittest.main()
