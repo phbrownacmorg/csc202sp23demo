@@ -6,7 +6,7 @@ def matched_delimiters(s: str) -> bool:
     """Takes a string S, and returns True if the delimiters in S
     are balanced.  If the delimiters are not balanced, returns False."""
     OPENING_DELIMITERS: str = """([{"""
-    NON_NESTING_DELIMITERS: str = """'"%$`"""
+    NON_NESTING_DELIMITERS: str = """%$"`"""
     CLOSING_DELIMITERS: str = """)]}"""
 
     stack: Stack[str] = Stack[str]() # type: ignore
@@ -59,6 +59,8 @@ def main(args: list[str]) -> int:
     assert (matched_delimiters('$$'))
     assert (matched_delimiters('%%'))
 
+
+
     # Nesting
     assert (matched_delimiters('(()()()())'))
     assert (matched_delimiters('(((())))'))
@@ -66,6 +68,14 @@ def main(args: list[str]) -> int:
     assert not (matched_delimiters('((((((())'))
     assert not (matched_delimiters('()))'))
     assert not (matched_delimiters('(()()(()'))
+
+    # Mixed delimiters
+    assert matched_delimiters('{ { ( [ ] [ ] ) } ( ) }')
+    assert matched_delimiters('[ [ { { ( ( ) ) } } ] ]')
+    assert matched_delimiters('[ ] [ ] [ ] ( ) { }')
+    assert not matched_delimiters('( [ ) ]')
+    assert not matched_delimiters('( ( ( ) ] ) )')
+    assert not matched_delimiters('[ { ( ) ]')
 
     # If we get this far, everything worked
     print('Tests completed successfully')
